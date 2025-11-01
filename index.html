@@ -9,24 +9,27 @@
 
 <body>
   <!-- HEADER -->
-  <header>
-    <div class="logo">🛍️ <span>ShopEase</span></div>
 
-    <nav class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
+    <header>
+  <div class="logo">🛍️ <span>ShopEase</span></div>
 
-    <div class="right-section">
-      <input type="text" placeholder="Search for products..." class="search-bar" />
-      <div class="cart" onclick="window.location.href='cart.html'">
-        🛒 <span id="cartCount" class="badge">0</span>
-      </div>
-      <div class="hamburger">☰</div>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" id="authLink">Login</a>
+
+  </nav>
+
+  <div class="right-section">
+    <input type="text" placeholder="Search for products..." class="search-bar" />
+    <div class="cart" onclick="window.location.href='cart.html'">
+      🛒 <span id="cartCount" class="badge">0</span>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <!-- HERO SECTION -->
   <section class="hero">
@@ -49,5 +52,42 @@
   </section>
 
   <script src="scripts/app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCfVv6wNNXmK2F5O41U2O12nUxXzwhspOM",
+    authDomain: "shopease-7359d.firebaseapp.com",
+    projectId: "shopease-7359d",
+    storageBucket: "shopease-7359d.firebasestorage.app",
+    messagingSenderId: "872493319493",
+    appId: "1:872493319493:web:15f1b8bbb78b0a658a6a2c"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  const authLink = document.getElementById('authLink');
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User logged in
+      authLink.textContent = "Logout";
+      authLink.onclick = () => {
+        auth.signOut().then(() => {
+          alert("👋 Logged out successfully!");
+          window.location.reload();
+        });
+      };
+    } else {
+      // No user logged in
+      authLink.textContent = "Login";
+      authLink.href = "login.html";
+    }
+  });
+</script>
+
 </body>
 </html>

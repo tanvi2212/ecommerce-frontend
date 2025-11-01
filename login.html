@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCfVv6wNNXmK2F5O41U2O12nUxXzwhspOM",
+    authDomain: "shopease-7359d.firebaseapp.com",
+    projectId: "shopease-7359d",
+    storageBucket: "shopease-7359d.firebasestorage.app",
+    messagingSenderId: "872493319493",
+    appId: "1:872493319493:web:15f1b8bbb78b0a658a6a2c",
+    measurementId: "G-TMSY3FXWXZ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - ShopEase</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .form-container {
+      max-width: 400px;
+      background: white;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #ff6600;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #e55b00;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #ff6600;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        margin: 40px 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<script>
+  const auth = firebase.auth();
+
+  const loginForm = document.getElementById('loginForm');
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        alert('Login successful 🎉');
+        window.location.href = 'index.html'; // redirect to homepage
+      })
+      .catch((error) => {
+        alert('❌ ' + error.message);
+      });
+  });
+</script>
+
+<body>
+
+  <header>
+    <h1>🛍️ ShopEase</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">🛒 Cart</a>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <div class="links">
+        <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+      </div>
+      <button type="submit">Login</button>
+      <div class="links">
+        <p>Don’t have an account? <a href="signup.html">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
+<script>
+  const auth = firebase.auth();
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        alert('✅ Login successful!');
+        window.location.href = 'index.html';
+      })
+      .catch((error) => {
+        alert('❌ ' + error.message);
+      });
+  });
+
+  // Forgot password feature
+  document.getElementById('forgotPasswordLink').addEventListener('click', () => {
+    const email = prompt('Enter your registered email:');
+    if (email) {
+      auth.sendPasswordResetEmail(email)
+        .then(() => alert('📧 Password reset email sent! Check your inbox.'))
+        .catch((error) => alert('❌ ' + error.message));
+    }
+  });
+</script>
+
+</body>
+</html>
