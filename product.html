@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .product-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 50px;
+      background: white;
+      max-width: 1000px;
+      margin: 50px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .product-detail img {
+      width: 400px;
+      border-radius: 10px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .product-detail img:hover {
+      transform: scale(1.1);
+    }
+
+    .details {
+      flex: 1;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 22px;
+      color: #e63946;
+      margin: 10px 0;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .quantity button {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .add-cart {
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    .add-cart:hover {
+      background: #e55b00;
+    }
+
+    .feedback {
+      color: green;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .product-detail {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-detail img {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🛍️ ShopEase</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="product-detail" id="productDetail"></main>
+
+    <script>
+  // 🛒 Update cart count
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cartCount").textContent = cart.length;
+  }
+
+  // 🎯 Get product ID from URL
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+  // 🧾 Product List
+  const products = [
+    {
+      id: 1,
+      name: "Denim Jacket",
+      price: 1999,
+      image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400",
+      description: "Stylish denim jacket perfect for every season."
+    },
+    {
+      id: 2,
+      name: "Classic White Sneakers",
+      price: 1499,
+      image: "https://images.unsplash.com/photo-1528701800489-20be3c6c14ee?w=400",
+      description: "Trendy white sneakers that go with every outfit. Lightweight, comfortable, and durable."
+    },
+    {
+      id: 3,
+      name: "Graphic T-Shirt",
+      price: 899,
+      image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400",
+      description: "Soft cotton T-shirt with a unique print design."
+    }
+  ];
+
+  // 🧩 Find the product by ID
+  const product = products.find(p => p.id == productId) || products[0];
+
+  // 🧱 Display Product Details
+  const detailContainer = document.getElementById("productDetail");
+  detailContainer.innerHTML = `
+    <img src="${product.image}" alt="${product.name}" id="productImage">
+    <div class="details">
+      <h2>${product.name}</h2>
+      <p>${product.description}</p>
+      <p class="price">₹<span id="priceValue">${product.price}</span></p>
+
+      <label>Choose Size:</label>
+      <select id="sizeSelect">
+        <option value="Small">Small</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Large">Large</option>
+      </select>
+
+      <div class="quantity">
+        <button id="decrease">−</button>
+        <span id="quantityValue">1</span>
+        <button id="increase">+</button>
+      </div>
+
+      <p>Total: ₹<span id="totalPrice">${product.price}</span></p>
+
+      <button class="add-cart" id="addToCartBtn">Add to Cart</button>
+      <p class="feedback" id="feedback"></p>
+    </div>
+  `;
+
+  // 🔢 Quantity & Price Update
+  let quantity = 1;
+  const price = product.price;
+  const qtyDisplay = document.getElementById("quantityValue");
+  const totalPrice = document.getElementById("totalPrice");
+
+  document.getElementById("increase").addEventListener("click", () => {
+    quantity++;
+    qtyDisplay.textContent = quantity;
+    totalPrice.textContent = price * quantity;
+  });
+
+  document.getElementById("decrease").addEventListener("click", () => {
+    if (quantity > 1) {
+      quantity--;
+      qtyDisplay.textContent = quantity;
+      totalPrice.textContent = price * quantity;
+    }
+  });
+
+  // 🛍️ Add to Cart
+  document.getElementById("addToCartBtn").addEventListener("click", () => {
+    const selectedSize = document.getElementById("sizeSelect").value;
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const item = { ...product, size: selectedSize, quantity };
+    cart.push(item);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    document.getElementById("feedback").textContent = "✅ Added to cart successfully!";
+    updateCartCount();
+  });
+
+  updateCartCount();
+</script>
+
+</body>
+</html>

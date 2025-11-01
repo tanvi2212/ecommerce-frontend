@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Frontend</title>
-    <link rel="stylesheet" href="styles/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopEase - Your Online Store</title>
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 
-    <body>
-    <header>
-        <div class="logo">ShopEase</div>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🛍️ <span>ShopEase</span></div>
 
-        <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Products</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
 
-        <div class="right-section">
-            <input type="text" placeholder="Search products..." class="search-bar">
-            <div class="cart">
-                🛒<span class="badge">2</span>
-            </div>
-            <div class="hamburger">☰</div>
-        </div>
-    </header>
-
-    <section class="hero">
-    <div class="hero-content">
-        <h1>Biggest Sale of the Year!</h1>
-        <p>Up to 70% OFF on all fashion, electronics & accessories.</p>
-        <button class="cta-btn">Shop Now</button>
+    <div class="right-section">
+      <input type="text" placeholder="Search for products..." class="search-bar" />
+      <div class="cart" onclick="window.location.href='cart.html'">
+        🛒 <span id="cartCount" class="badge">0</span>
+      </div>
+      <div class="hamburger">☰</div>
     </div>
-</section>
+  </header>
 
-<section class="product-section">
-  <h2>🛍️ Featured Products</h2>
-  <div class="product-grid" id="productGrid">
-    <!-- Dynamic products will load here -->
-  </div>
-</section>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Biggest Sale of the Year 🎉</h1>
+      <p>Up to <span>70% OFF</span> on top brands — fashion, electronics, and more!</p>
+      <button class="cta-btn" onclick="window.location.href='#productGrid'">Shop Now</button>
+    </div>
+  </section>
 
+  <!-- PRODUCT SECTION -->
+  <section class="product-section">
+    <h2>✨ Featured Products</h2>
+    <div class="product-grid" id="productGrid">
+      <a href="product.html?id=1">Denim Jacket</a>
+<a href="product.html?id=2">White Sneakers</a>
+<a href="product.html?id=3">Graphic T-Shirt</a>
 
-    <script src="scripts/app.js"></script>
+    </div>
+  </section>
+
+  <script src="scripts/app.js"></script>
 </body>
-
 </html>
-

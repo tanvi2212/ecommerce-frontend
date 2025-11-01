@@ -1,21 +1,18 @@
 const productGrid = document.getElementById("productGrid");
 
-// Show loading message before fetching products
+// Show loading message
 productGrid.innerHTML = "<p class='loading'>⏳ Loading products...</p>";
 
-// Fetch product data from the API
-fetch("https://fakestoreapi.com/products?limit=8")
+// Fetch all products from FakeStore API
+fetch("https://fakestoreapi.com/products")
   .then(response => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    if (!response.ok) throw new Error("Failed to fetch products");
     return response.json();
   })
   .then(products => {
-    // Clear the loading message
-    productGrid.innerHTML = "";
+    productGrid.innerHTML = ""; // clear loading message
 
-    // Loop through each product and create cards dynamically
+    // Loop and create each product card
     products.forEach(product => {
       const card = document.createElement("div");
       card.classList.add("product-card");
@@ -25,14 +22,19 @@ fetch("https://fakestoreapi.com/products?limit=8")
         <div class="product-info">
           <h3>${product.title.slice(0, 25)}...</h3>
           <p>$${product.price}</p>
-          <button>Add to Cart 🛒</button>
+          <button onclick="viewProduct(${product.id})">View Details 🔍</button>
         </div>
       `;
+
       productGrid.appendChild(card);
     });
   })
-  .catch(error => {
-    // Display error message if API fails
-    productGrid.innerHTML = `<p style="color:red;">❌ Failed to load products. Please try again later.</p>`;
-    console.error("Error fetching products:", error);
+  .catch(err => {
+    productGrid.innerHTML = `<p style="color:red;">❌ Error loading products. Please try again later.</p>`;
+    console.error(err);
   });
+
+// Redirect to product detail page with product ID
+function viewProduct(id) {
+  window.location.href = `product.html?id=${id}`;
+}
