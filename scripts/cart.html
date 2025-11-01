@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - ShopEase</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .cart-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+
+    .cart-item img {
+      width: 100px;
+      border-radius: 8px;
+    }
+
+    .cart-details {
+      flex: 1;
+      padding-left: 20px;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .continue-btn {
+      display: block;
+      margin: 30px auto 0;
+      background: #ff6600;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .continue-btn:hover {
+      background: #e55b00;
+    }
+
+.checkout-btn {
+  display: block;
+  margin: 20px auto;
+  background: #222;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background: #000;
+}
+
+
+    @media (max-width: 768px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cart-details {
+        padding-left: 0;
+      }
+
+      .total {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛍️ ShopEase</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="cart-container">
+    <h2>Your Shopping Cart</h2>
+    <div class="cart-items" id="cartItems"></div>
+    <p class="total">Total: ₹<span id="cartTotal">0</span></p>
+
+<!-- ✅ Add Proceed to Checkout Section Here -->
+<div class="cart-summary">
+  <button id="checkoutBtn" class="checkout-btn">Proceed to Checkout</button>
+</div>
+
+<button class="continue-btn" onclick="window.location.href='index.html'">⬅ Continue Shopping</button>
+
+  </main>
+
+  <script src="cart.js"></script>
+</body>
+</html>
